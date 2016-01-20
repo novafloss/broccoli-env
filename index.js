@@ -20,11 +20,13 @@ Env.prototype = {
   },
 
   setEnv: function(env) {
-    if (this.getEnvs().indexOf(env) === -1) {
-      throw new Error('Environment set to "' + env + '", but BROCCOLI_ENV only accepts one of the following values: ' + this.getEnvs().join(', '))
+    if (this.envs.indexOf(env) === -1) {
+      this.env = this.envs[0]
+      console.log('Environment set to "' + env + '", but BROCCOLI_ENV only accepts one of the following values: ' + this.envs.join(', ') + '. Defaulting to ' + this.env)
     }
-
-    this.env = env
+    else {
+      this.env = env
+    }
 
     return this
   },
@@ -36,11 +38,11 @@ Env.prototype = {
   setEnvs: function(envs) {
     this.envs = envs
 
-    if (!this.getEnvs().length) {
+    if (!this.envs.length) {
       throw new Error('Parameter "envs" should be an array')
     }
 
-    this.setEnv(this.envs[0])
+    this.setEnv(this.env)
 
     return this
   }
