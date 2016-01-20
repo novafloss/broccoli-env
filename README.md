@@ -17,8 +17,6 @@ console.log(env) // => 'development' or 'production'
 ```
 
 ```js
-var broccoliEnv = require('broccoli-env');
-broccoliEnv.setEnvs(['testing','development','production']);
-var env = broccoliEnv.getEnv();
-console.log(env) // => 'testing', 'development' or 'production'
+var env = require('broccoli-env').setEnvs(['development','production', 'testing']).getEnv();
+console.log(env) // => 'development', 'production' or 'testing'
 ```
