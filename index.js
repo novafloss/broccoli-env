@@ -5,6 +5,7 @@ function Env() {
 }
 
 Env.prototype = {
+
   init: function() {
     this.setEnvs(defaultEnvs)
 
@@ -22,7 +23,6 @@ Env.prototype = {
   setEnv: function(env) {
     if (this.envs.indexOf(env) === -1) {
       this.env = this.envs[0]
-      console.log('Environment set to "' + env + '", but BROCCOLI_ENV only accepts one of the following values: ' + this.envs.join(', ') + '. Defaulting to ' + this.env)
     }
     else {
       this.env = env
@@ -36,18 +36,19 @@ Env.prototype = {
   },
 
   setEnvs: function(envs) {
-    this.envs = envs
-
-    if (!this.envs.length) {
+    if (!Array.isArray(envs)) {
       throw new Error('Parameter "envs" should be an array')
     }
+
+    this.envs = envs
 
     this.setEnv(this.env)
 
     return this
   }
-};
 
-module.exports = (function(options) {
-  return new Env(options)
+}
+
+module.exports = (function() {
+  return new Env()
 })()
